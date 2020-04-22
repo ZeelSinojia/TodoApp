@@ -1,0 +1,16 @@
+body{
+    overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.todo-completed{
+    text-decoration: line-through;
+
+}
+
+.end-para{
+    height: 100px;
+}

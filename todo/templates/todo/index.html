@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'todo/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>TODO List</h1>
+    </div>
+    <div class="container">
+        <form method="post" action="{% url 'add' %}">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="todoText">Thing to do</label>
+              {{ form.text }}
+            <small id="todo-help" class="form-text text-muted">Enter thing to do e.g. Clear the trash</small>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <br>
+    <div class="container">
+        <a class="btn btn-danger" href="{% url 'delete-completed' %}">Delete Completed</a>
+        <a class="btn btn-danger" href="{% url 'delete-all' %}">Delete All</a>
+    </div>
+    <br><br>
+    <div class="container">
+        <ul class="list-group">
+            {% for todo in todo_list %}
+                {% if todo.complete %}
+                    <li class="list-group-item todo-completed list-group-item-dark">
+                        {{ todo.text }}
+                    </li>
+                {% else %}
+                    <a href="{% url 'complete' todo.id %}" class="text-decoration-none">
+                        <li class="list-group-item">
+                            {{ todo.text }}
+                        </li>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="container">
+        <p class="end-para"></p>
+    </div>
+</body>
+</html>
